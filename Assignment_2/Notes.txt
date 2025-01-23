@@ -1,0 +1,54 @@
+Gaussian Distribution : Normal Distribution with given mean and standard deviation where values cluster around mean with fewer extreme values on either side
+
+Power Law Distribution : Highly skewed with a long tail where most values are small, but a few very large values
+- exponent parameter 'a' controls the decay rate of probabilities
+- ex. wealth distribution, earthquake magnitudes
+- models phenomena where large events dominate distribution like network traffic
+- smaller a values lead to higher probability of generating very large values and larger value for a make distribution decay more steeply, concentrating values closer to lower bound
+
+Geometric Distribution : Models the number of trials needed for first success in Bernoulli Process
+- controlled by probability 'p', where smaller p values lead to longer trials
+- Heavily skewed with most values near 1 but with a potential for large outliers.
+- ex. flipping coins, manufacturing defects
+- smaller p value means probability of success is very low per trial, and it takes more trials on average to achieve the first success, resulting in a long-tailed distribution whereas large value leads to distribution that is more concentrated near 1
+
+1) Divide by Maximum Value
+- scales values to range [0, 1]
+- large outliers will disproportionately affect after scaling
+- B : Values are scaled down but relative distribution retained
+- I : Heavy tail will dominate the scale, smaller values are compressed
+- H : Long tail (large values) is scaled down but may still dominate due to the discrete nature
+
+2) Divide by Sum
+- scales variable as proportion ( relative contribution of each value to the total )
+- total sum of all normalized values will be always  1
+- B : Original spread is somewhat retained
+- I : High-valued tail dominates, smaller values become negligible.
+- H : Large discrete values (tail) heavily affect normalization.
+
+3) Z-score Normalization
+- centers data to have mean = 0 and standard deviation = 1
+- highlights relative deviation from mean
+- B : Retains the symmetric, bell-shaped structure
+- I : Strongly skewed distribution remains
+- H : Large positive skew will still exist but centered at 0
+
+4) Percentile Normalization
+- converts each value into its rank percentile
+- robust to outliers and emphasizes relative positioning rather than magnitude hence useful for skewed and non-linear distributions
+- B : Symmetry is preserved but magnitude is ignored
+- I : Equalized contribution of extreme and small values, reducing skew
+- H : Handles discrete and heavily skewed nature
+
+5) Median Adjustment
+- aligns median of all variables to a common value
+- B : Median-centered, distribution retains shape
+- I : Skew remains but central value aligns with others
+- H : Long tail becomes less dominant
+
+6) Quantile Normalization
+- forces all variables to have same distribution by matching quantiles
+- B : Distribution may slightly distort
+- I : Heavy-tailed structure adjusted to match others
+- H : Discrete nature adjusts to fit common distributions
+

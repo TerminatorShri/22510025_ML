@@ -1,0 +1,31 @@
+The normal distribution is symmetric about its mean, meaning half of the data points lie below the mean and half lie above it. This uses Box-Muller Transform to form normal distribution. 
+
+To find likelihood we calculate probability density function of normal distribution at given point x. The function returns the probability density (a real number) for the given value x. This value represents how likely it is to observe x in a dataset that follows a normal distribution with mean mu and standard deviation sigma. It tells us how dense the probability is around x
+=> https://youtu.be/XepXtl9YKwc?si=PMMwc9P3jwe_bVDg
+Maximum likelihood estimates for mean or standard deviation implies value for mean or standard deviation that maximize the likelihood of observing the things that are actually present at that point
+=> Calculation : https://youtu.be/Dn6b9fCIUpM?si=wSDoxrp469wMF9KW
+Keeping standard deviation constant we can find the maximum likelihood value for different values of mean and keeping mean constant we can find value for sigma
+
+In case of standardization :
+Here first we create bins based on interval and then assign each data point a bin 
+include_lowest=True ensures that the lower boundary of the first bin is included (i.e., data points equal to the minimum value of the dataset are assigned to the first bin).
+Then we group datapoints according to bins assigned and then assign it the value of most frequent value and mapped to them as its label 
+
+---
+
+Impact of Standard Deviation :
+- Measures how much of the heights deviate from mean
+- low standard deviation implies that values are close to mean, resulting in tightly clustered distribution
+- high standard deviation implies that values are more spread out and varied which may need to more overlap between the distribution
+
+Hence here,
+For Low SD, accuracy is high and as the standard deviation increases accuracy starts to decrease
+
+Also for small quantization intervals we have higher accuracy and as quantization interval increases accuracy significantly drops. Here Binning ( Discretization ) is used to handle outliers ( reducing noise and effect ) and improve value spread. 
+
+---
+
+Precision : Of all instances predicted as positive how many are positive ?
+Recall : Of all positive cases how many model predicted correct ?
+Specificity : Of all negative cases how many model predicted correct ?
+F1 Score is harmonic mean of precision and recall and is useful when classes are imbalanced 
