@@ -41,7 +41,7 @@ def normalize(data, method):
     elif method == "Z-score":
         df = df.apply(stats.zscore)
     elif method == "Percentile Scaling":
-        df = df.apply(lambda x: stats.rankdata(x, method=rank_method) / len(x))
+        df = df.apply(lambda x: ((stats.rankdata(x, method=rank_method) - 1) / (len(x) - 1)) * 100)
     elif method == "Median Normalization":
         medians = df.median()
         target_median = medians.mean()
@@ -122,27 +122,27 @@ for method in methods:
         axes[idx].legend()
 
     # Side-by-Side Histograms
-    # fig, axes = plt.subplots(3, 2, figsize=(14, 12), gridspec_kw={"hspace": 0.5, "wspace": 0.3})
-    #
-    # for idx, (name, original, normalized) in enumerate(
-    #         zip(
-    #             data.columns,
-    #             [B, I, H],
-    #             [normalized_data["B"], normalized_data["I"], normalized_data["H"]],
-    #         )
-    # ):
-    #     # Original Data Histogram
-    #     axes[idx, 0].hist(original, bins=50, alpha=0.5, label=f"{name} (Original)", color="blue")
-    #     axes[idx, 0].set_title(f"Original {name}")
-    #     axes[idx, 0].set_xlabel("Values")
-    #     axes[idx, 0].set_ylabel("Frequency")
-    #     axes[idx, 0].legend()
-    #
-    #     # Normalized Data Histogram
-    #     axes[idx, 1].hist(normalized, bins=50, alpha=0.5, label=f"{name} (Normalized)", color="orange")
-    #     axes[idx, 1].set_title(f"Normalized {name}")
-    #     axes[idx, 1].set_xlabel("Values")
-    #     axes[idx, 1].set_ylabel("Frequency")
-    #     axes[idx, 1].legend()
+    fig, axes = plt.subplots(3, 2, figsize=(14, 12), gridspec_kw={"hspace": 0.5, "wspace": 0.3})
+
+    for idx, (name, original, normalized) in enumerate(
+            zip(
+                data.columns,
+                [B, I, H],
+                [normalized_data["B"], normalized_data["I"], normalized_data["H"]],
+            )
+    ):
+        # Original Data Histogram
+        axes[idx, 0].hist(original, bins=50, alpha=0.5, label=f"{name} (Original)", color="blue")
+        axes[idx, 0].set_title(f"Original {name}")
+        axes[idx, 0].set_xlabel("Values")
+        axes[idx, 0].set_ylabel("Frequency")
+        axes[idx, 0].legend()
+
+        # Normalized Data Histogram
+        axes[idx, 1].hist(normalized, bins=50, alpha=0.5, label=f"{name} (Normalized)", color="orange")
+        axes[idx, 1].set_title(f"Normalized {name}")
+        axes[idx, 1].set_xlabel("Values")
+        axes[idx, 1].set_ylabel("Frequency")
+        axes[idx, 1].legend()
 
     st.pyplot(fig)
